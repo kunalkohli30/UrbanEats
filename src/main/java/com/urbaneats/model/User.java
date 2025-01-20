@@ -1,7 +1,7 @@
 package com.urbaneats.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.urbaneats.dto.RestaurantDto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,20 +17,29 @@ import java.util.List;
 @Builder
 public class User {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(
+            strategy= GenerationType.AUTO,
+            generator="native"
+    )
     @Id
     private Long id;
 
     private String fullName;
     private String email;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private USER_ROLE user_role;
 
     @JsonIgnore
-    @OneToMany
-    private List<Order> orders;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Order> customer_orders;
 
+    @ElementCollection
     private List<RestaurantDto> favourites;
 
-    private List<Address> addresses;
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//    private List<Address> addresses;
+
+    @OneToOne
+    private Cart cart;
 }
