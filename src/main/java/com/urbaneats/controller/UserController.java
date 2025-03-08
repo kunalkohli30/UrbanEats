@@ -1,17 +1,20 @@
 package com.urbaneats.controller;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
-import com.urbaneats.dto.Error;
-import com.urbaneats.dto.ErrorType;
+import com.google.firebase.auth.UserRecord;
+import com.urbaneats.dto.error.Error;
+import com.urbaneats.dto.error.ErrorType;
 import com.urbaneats.dto.UserDto;
 import com.urbaneats.handler.ErrorResponseHandler;
-import com.urbaneats.model.Cart;
 import com.urbaneats.model.USER_ROLE;
 import com.urbaneats.model.User;
 import com.urbaneats.service.UserService;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -77,6 +80,18 @@ public class UserController {
             return ErrorResponseHandler.respondError(userDetails.getLeft());
 
         return new ResponseEntity<>(userDetails.get(), HttpStatus.OK);
+    }
+
+    @GetMapping("/phone")
+    public ResponseEntity<?> checkPhoneNumber(HttpServletRequest request) throws FirebaseAuthException {
+        String userId = request.getAttribute("uid").toString();
+        UserRecord userRecord = FirebaseAuth.getInstance().getUser(userId);
+
+        String phoneNumber = userRecord.getPhoneNumber();
+        if(StringUtils.isBlank(phoneNumber))
+            return ResponseEntity.ok(Map.ofEntries(Map.entry("phone_number_exists", false)));
+        else
+            return ResponseEntity.ok(Map.ofEntries(Map.entry("phone_number_exists", true), Map.entry("phone_number", phoneNumber)));
     }
 
 

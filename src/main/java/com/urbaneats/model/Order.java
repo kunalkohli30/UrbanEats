@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,24 +28,33 @@ public class Order {
     private Long id;
 
     private String orderStatus;
-    private Long totalAmount;
-    private LocalDate createdAt;
-    private int totalItem;
-    private int totalPrice;
+    private LocalDateTime createdAt;
+    private Integer deliveryTimeInSeconds;
+    private Integer totalItem;
+    private Integer totalPrice;
+    private Integer deliveryFee;
+    private Integer deliveryTip;
+    private Integer gstAndFees;
+    private String couponCode;
+    private Integer discountAmount;
+    private Integer totalAmount;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private User customer;
+    private String userId;
+    private String razorpayOrderId;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
-    @ManyToOne
-    @JoinColumn(name = "address_id")
-    private Address deliveryAddress;
+    private String deliveryAddress;
+    private String addressName;
 
-    @OneToMany(mappedBy = "order")
-    private List<OrderItem> items;
+//    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+//    private List<OrderItem> items = new ArrayList<>();
+//
+//    public void addItem(OrderItem item) {
+//        items.add(item);
+//        item.setOrder(this); // Ensure bidirectional consistency
+//    }
 }

@@ -4,19 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
-import com.urbaneats.controller.CookieService.FirebaseTokenResponse;
-import com.urbaneats.dto.Error;
-import com.urbaneats.dto.ErrorType;
+import com.urbaneats.dto.error.Error;
+import com.urbaneats.dto.error.ErrorType;
 import com.urbaneats.dto.Tokens;
-import io.vavr.control.Either;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,16 +38,16 @@ public class CookieController {
     public ResponseEntity<?> addCookies(@RequestBody Tokens tokens, HttpServletResponse response) {
         ResponseCookie accessTokenCookie = ResponseCookie.from("access_token", tokens.getAuthToken())
                 .httpOnly(true)
-//                .secure(true) // Set to true if using HTTPS
-//                .sameSite("Strict")
+                .secure(true) // Set to true if using HTTPS
+                .sameSite("None")
                 .path("/")
                 .maxAge(15 * 60) // 15 minutes
                 .build();
 
         ResponseCookie refreshTokenCookie = ResponseCookie.from("refresh_token", tokens.getRefreshToken())
                 .httpOnly(true)
-//                .secure(true)
-//                .sameSite("Strict")
+                .secure(true)
+                .sameSite("None")
                 .path("/")
                 .maxAge(7 * 24 * 60 * 60) // 7 days
                 .build();
@@ -106,8 +101,8 @@ public class CookieController {
                 .peek(firebaseResponse -> {
                     ResponseCookie newAccessTokenCookie = ResponseCookie.from("access_token", firebaseResponse.getAccessToken())
                             .httpOnly(true)
-//                            .secure(true)
-//                            .sameSite("Strict")
+                            .secure(true)
+                            .sameSite("None")
                             .path("/")
                             .maxAge(24 *  60 * 60) // 15 minutes
                             .build();

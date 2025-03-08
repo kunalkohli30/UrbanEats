@@ -1,4 +1,4 @@
-package com.urbaneats.dto;
+package com.urbaneats.dto.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -28,6 +28,7 @@ public class Offers {
     private Integer discountPercentage;
     private Integer discountAmount;
     private Integer minimumOrderValue;
+    private Integer maxDiscountAmount; //
 
     @ManyToOne
     @JoinColumn(name="restaurant_id")

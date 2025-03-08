@@ -30,9 +30,9 @@ public class User {
     private String password;
     private USER_ROLE user_role;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<Order> customer_orders;
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+//    private List<Order> customer_orders;
 
     @ElementCollection
     private List<RestaurantDto> favourites;

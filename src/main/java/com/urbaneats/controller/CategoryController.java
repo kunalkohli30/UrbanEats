@@ -1,7 +1,7 @@
 package com.urbaneats.controller;
 
-import com.urbaneats.dto.Error;
-import com.urbaneats.dto.ErrorType;
+import com.urbaneats.dto.error.Error;
+import com.urbaneats.dto.error.ErrorType;
 import com.urbaneats.handler.ErrorResponseHandler;
 import com.urbaneats.model.Category;
 import com.urbaneats.service.CategoryService;

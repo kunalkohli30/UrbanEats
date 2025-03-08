@@ -25,7 +25,11 @@ public class UserAddress {
     private String city;
     private String pinCode;
     private String addressName;
-    private String validatedGoogleAddress;
+
+    @Column(name = "formatted_google_address")
+    private String formattedGoogleAddress;
+    private String lat;
+    private String lng;
     private String userId;
 
 }

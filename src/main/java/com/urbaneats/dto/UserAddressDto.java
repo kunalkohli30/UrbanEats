@@ -16,7 +16,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserAddressDto {
 
-    private String validatedGoogleAddress;
+    private String formattedGoogleAddress;
+    private String lat;
+    private String lng;
     private Long userAddressId;
     private String flatNo;
     private String street;

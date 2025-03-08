@@ -1,12 +1,11 @@
 package com.urbaneats.controller;
 
-import com.urbaneats.dto.Error;
-import com.urbaneats.dto.ErrorType;
+import com.urbaneats.dto.error.Error;
+import com.urbaneats.dto.error.ErrorType;
 import com.urbaneats.dto.FoodRequestDto;
 import com.urbaneats.handler.ErrorResponseHandler;
 import com.urbaneats.model.*;
 import com.urbaneats.service.*;
-import io.vavr.control.Either;
 import io.vavr.control.Try;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,9 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("api/admin/food")

@@ -1,8 +1,8 @@
 package com.urbaneats.controller;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.urbaneats.dto.Error;
-import com.urbaneats.dto.ErrorType;
+import com.urbaneats.dto.error.Error;
+import com.urbaneats.dto.error.ErrorType;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
 import lombok.Data;

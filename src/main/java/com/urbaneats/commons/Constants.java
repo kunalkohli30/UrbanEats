@@ -1,7 +1,7 @@
 package com.urbaneats.commons;
 
-import com.urbaneats.dto.Error;
-import com.urbaneats.dto.ErrorType;
+import com.urbaneats.dto.error.Error;
+import com.urbaneats.dto.error.ErrorType;
 
 public class Constants {
 

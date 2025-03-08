@@ -1,6 +1,6 @@
-package com.urbaneats.dto;
+package com.urbaneats.dto.restaurant;
 
-import com.urbaneats.model.Cuisine;
+import com.urbaneats.dto.discountInfoTemporary;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

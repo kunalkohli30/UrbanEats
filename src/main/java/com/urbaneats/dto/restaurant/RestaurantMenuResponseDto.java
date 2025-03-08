@@ -1,5 +1,6 @@
-package com.urbaneats.dto;
+package com.urbaneats.dto.restaurant;
 
+import com.urbaneats.dto.FoodItemsResponseDto;
 import lombok.*;
 
 import java.util.List;

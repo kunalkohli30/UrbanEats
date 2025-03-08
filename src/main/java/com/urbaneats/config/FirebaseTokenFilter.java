@@ -1,13 +1,11 @@
 package com.urbaneats.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.firebase.auth.AuthErrorCode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
-import com.urbaneats.dto.Error;
-import com.urbaneats.dto.ErrorType;
-import com.urbaneats.exception.AuthorizationFailedException;
+import com.urbaneats.dto.error.Error;
+import com.urbaneats.dto.error.ErrorType;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -51,6 +49,7 @@ public class FirebaseTokenFilter extends OncePerRequestFilter {
 
         String requestURI = request.getRequestURI();
         Cookie[] cookies = request.getCookies();
+        logger.error("cookies received:" + Arrays.toString(cookies));
         if(cookies == null) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             return;

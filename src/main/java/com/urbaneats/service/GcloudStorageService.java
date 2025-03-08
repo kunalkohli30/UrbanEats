@@ -16,8 +16,8 @@ import java.util.Map;
 @Slf4j
 public class GcloudStorageService {
 
-    private final String projectId = "urbaneats-526a0";
-    private final String bucketName = "urban_eats";
+    private final String projectId = "urban-eats-30";
+    private final String bucketName = "urban_eats-1";
 
     Map<String, String> getFoodImageUrlMap(String folderName) {
 
@@ -27,15 +27,17 @@ public class GcloudStorageService {
         Page<Blob> blobs =
                 storage.list(
                         bucketName,
-                        Storage.BlobListOption.prefix(folderName),
+                        Storage.BlobListOption.prefix("urban_eats/" + folderName),
                         Storage.BlobListOption.currentDirectory());
 
         Iterable<Blob> values = blobs.getValues();
 
         for(Blob blob: values) {
             String mediaLink = blob.getMediaLink();
-            Try<String> imageId = Try.of(() -> blob.getName().split("/")[1].split("\\.")[0])
-                    .onFailure(throwable -> log.error("improper image url found, not able to able image id out of the url by the split algo in getFoodImageUrlMap: {}", blob.getName()));
+//            Had to change split[1] to split[2] after changing google account
+            Try<String> imageId = Try.of(() -> blob.getName().split("/")[2].split("\\.")[0])
+//                    .onFailure(throwable -> log.error("improper image url found, not able to able image id out of the url by the split algo in getFoodImageUrlMap: {}", blob.getName()))
+                    ;
 
             if(imageId.isFailure()) continue;
 

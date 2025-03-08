@@ -1,9 +1,9 @@
 package com.urbaneats.service;
 
-import com.urbaneats.dto.Error;
-import com.urbaneats.dto.ErrorType;
-import com.urbaneats.dto.RestaurantRequestDto;
-import com.urbaneats.dto.RestaurantResponseDto;
+import com.urbaneats.dto.error.Error;
+import com.urbaneats.dto.error.ErrorType;
+import com.urbaneats.dto.restaurant.RestaurantRequestDto;
+import com.urbaneats.dto.restaurant.RestaurantResponseDto;
 import com.urbaneats.model.*;
 import com.urbaneats.repository.AddressRepository;
 import com.urbaneats.repository.RestaurantRepository;
@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -206,6 +205,8 @@ public class RestaurantService {
         }
 
         RestaurantResponseDto responseDto = modelMapper.map(restaurant, RestaurantResponseDto.class);
+        List<Cuisine> cuisines = cuisineService.getCuisinesForRestaurant(restaurant.get().getId());
+        responseDto.setCuisines(cuisines.stream().map(Cuisine::getCuisineName).toList());
         responseDto.setImageId(getRestaurantImageUrl(restaurant.get().getImageId(), restaurant.get().getName()));
         return responseDto;
     }
@@ -214,7 +215,7 @@ public class RestaurantService {
         return restaurantRepository.findById(restaurantId).orElse(null);
     }
 
-    public String getRestaurantImageUrl(String imageId, String restaurantName) {
+    public  String getRestaurantImageUrl(String imageId, String restaurantName) {
 
         if(imageId == null || StringUtils.isEmpty(imageId))
             return StringUtils.EMPTY;

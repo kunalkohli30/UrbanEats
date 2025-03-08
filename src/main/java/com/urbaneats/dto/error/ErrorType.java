@@ -1,4 +1,4 @@
-package com.urbaneats.dto;
+package com.urbaneats.dto.error;
 
 public enum ErrorType {
 
@@ -18,5 +18,9 @@ public enum ErrorType {
     CART_RESTAURANT_ID_MISMATCH,
     CART_DOES_NOT_EXIST,
     FOOD_ID_INVALID,
+    VALIDATION_FAILED,
+    FAILED_TO_CREATE_PAYMENT_ORDER,
+    RAZORPAY_ERROR,
+    RESTAURANT_DOES_NOT_EXIST,
     INTERNAL_SERVER_ERROR
 }

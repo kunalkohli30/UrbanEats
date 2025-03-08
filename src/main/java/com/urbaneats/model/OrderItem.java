@@ -22,13 +22,14 @@ public class OrderItem {
     @Id
     private Long id;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "food_id", nullable = false, foreignKey = @ForeignKey(name = "fk_orderitem_food"))  // Foreign Key in order_item table
     private Food food;
 
     @ManyToOne
+    @JoinColumn(name = "order_id", nullable = false)  // Foreign Key to Order
     private Order order;
 
     private int quantity;
-    private Long totalPrice;
-    private List<String> ingredients;
+    private int totalPrice;
 }

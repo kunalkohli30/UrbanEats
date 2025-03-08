@@ -1,15 +1,10 @@
 package com.urbaneats.controller;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
-import com.google.firebase.auth.FirebaseToken;
-import com.google.firebase.auth.UserRecord;
-import com.google.firebase.auth.UserRecord.UpdateRequest;
-import com.urbaneats.dto.Error;
-import com.urbaneats.dto.ErrorType;
+import com.urbaneats.dto.error.Error;
+import com.urbaneats.dto.error.ErrorType;
 import com.urbaneats.handler.ErrorResponseHandler;
 import com.urbaneats.model.Restaurant;
-import com.urbaneats.model.RestaurantDto;
 import com.urbaneats.model.User;
 import com.urbaneats.service.RestaurantService;
 import com.urbaneats.service.UserService;
@@ -20,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -97,7 +91,7 @@ public class RestaurantController {
     }
 
     @GetMapping("{restaurantId}")
-    public ResponseEntity<?> getAllRestaurants(@PathVariable Long restaurantId,
+    public ResponseEntity<?> getRestaurantData(@PathVariable Long restaurantId,
                                                HttpServletRequest request) throws FirebaseAuthException {
 
         return Try.of(() -> restaurantService.getRestaurantData(restaurantId))

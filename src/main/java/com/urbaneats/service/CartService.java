@@ -1,8 +1,8 @@
 package com.urbaneats.service;
 
 import com.urbaneats.dto.cartResponse.*;
-import com.urbaneats.dto.Error;
-import com.urbaneats.dto.ErrorType;
+import com.urbaneats.dto.error.Error;
+import com.urbaneats.dto.error.ErrorType;
 import com.urbaneats.model.Cart;
 import com.urbaneats.model.CartItem;
 import com.urbaneats.model.Food;

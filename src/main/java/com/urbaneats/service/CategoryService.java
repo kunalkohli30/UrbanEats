@@ -1,9 +1,7 @@
 package com.urbaneats.service;
 
-import com.urbaneats.dto.Error;
+import com.urbaneats.dto.error.Error;
 import com.urbaneats.model.Category;
-import com.urbaneats.model.Food;
-import com.urbaneats.model.IngredientCategory;
 import com.urbaneats.repository.CategoryRepository;
 import io.vavr.control.Either;
 import org.springframework.beans.factory.annotation.Autowired;

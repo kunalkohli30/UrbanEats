@@ -1,19 +1,13 @@
 package com.urbaneats.controller;
 
-import com.urbaneats.dto.Error;
-import com.urbaneats.dto.RestaurantRequestDto;
+import com.urbaneats.dto.restaurant.RestaurantRequestDto;
 import com.urbaneats.handler.ErrorResponseHandler;
-import com.urbaneats.model.User;
 import com.urbaneats.service.RestaurantService;
 import com.urbaneats.service.UserService;
-import io.vavr.control.Either;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/admin/restaurants")

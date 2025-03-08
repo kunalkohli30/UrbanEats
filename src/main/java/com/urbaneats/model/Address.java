@@ -30,8 +30,8 @@ public class Address {
     private String country;
     private String addressName;
 
-    @OneToMany(mappedBy = "deliveryAddress", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Order> a_orders;
+//    @OneToMany(mappedBy = "deliveryAddress", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Order> a_orders;
 
     private String userId;
 }

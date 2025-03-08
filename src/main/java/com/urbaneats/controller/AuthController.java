@@ -1,13 +1,14 @@
 package com.urbaneats.controller;
 
-import com.urbaneats.dto.Error;
-import com.urbaneats.dto.ErrorType;
+import com.urbaneats.dto.error.Error;
+import com.urbaneats.dto.error.ErrorType;
 import com.urbaneats.dto.UserDto;
 import com.urbaneats.request.LoginRequest;
 import com.urbaneats.handler.ErrorResponseHandler;
 import com.urbaneats.service.AuthService;
 import com.urbaneats.model.User;
 import io.vavr.control.Try;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +83,8 @@ public class AuthController {
                 .fold(ErrorResponseHandler::respondError,
                         response -> new ResponseEntity<>(response, HttpStatus.OK));
     }
+
+
 
 //    Login implemented on fronted
 //    @PostMapping("/signin/v2")

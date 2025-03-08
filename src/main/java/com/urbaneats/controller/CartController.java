@@ -1,16 +1,14 @@
 package com.urbaneats.controller;
 
 import com.urbaneats.dto.cartResponse.CartItemRequestDto;
-import com.urbaneats.dto.Error;
-import com.urbaneats.dto.ErrorType;
+import com.urbaneats.dto.error.Error;
+import com.urbaneats.dto.error.ErrorType;
 import com.urbaneats.dto.cartResponse.CartRequestDto;
 import com.urbaneats.handler.ErrorResponseHandler;
 import com.urbaneats.model.Cart;
-import com.urbaneats.model.User;
 import com.urbaneats.response.ResponseBody;
 import com.urbaneats.service.CartService;
 import com.urbaneats.service.UserService;
-import io.vavr.control.Either;
 import io.vavr.control.Try;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.exception.ExceptionUtils;

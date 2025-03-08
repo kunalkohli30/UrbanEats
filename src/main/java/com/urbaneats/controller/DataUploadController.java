@@ -1,6 +1,6 @@
 package com.urbaneats.controller;
 
-import com.urbaneats.dto.RestaurantDataInsertDto;
+import com.urbaneats.dto.restaurant.RestaurantDataInsertDto;
 import com.urbaneats.model.Cuisine;
 import com.urbaneats.model.Offers;
 import com.urbaneats.model.Restaurant;

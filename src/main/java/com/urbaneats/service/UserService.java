@@ -5,8 +5,8 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 import com.google.firebase.auth.UserRecord;
 import com.urbaneats.config.JwtProvider;
-import com.urbaneats.dto.Error;
-import com.urbaneats.dto.ErrorType;
+import com.urbaneats.dto.error.Error;
+import com.urbaneats.dto.error.ErrorType;
 import com.urbaneats.dto.UserDto;
 import com.urbaneats.model.USER_ROLE;
 import com.urbaneats.model.User;
@@ -92,7 +92,7 @@ public class UserService {
                 .password(userData.get().getPassword())
                 .user_role(user_role)
                 .favourites(userData.get().getFavourites())
-                .customer_orders(userData.get().getCustomer_orders())
+//                .customer_orders(userData.get().getCustomer_orders())
 //                .addresses(userData.get().getAddresses())
                 .build();
         return userRepository.save(updatedUser);

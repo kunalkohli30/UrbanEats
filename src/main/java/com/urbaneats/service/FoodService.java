@@ -1,12 +1,10 @@
 package com.urbaneats.service;
 
-import com.google.api.gax.paging.Page;
-import com.google.cloud.storage.Blob;
-import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
 import com.urbaneats.dto.*;
-import com.urbaneats.dto.Error;
+import com.urbaneats.dto.error.Error;
 import com.urbaneats.dto.dataSetup.FoodDataEntry;
+import com.urbaneats.dto.error.ErrorType;
+import com.urbaneats.dto.restaurant.RestaurantMenuResponseDto;
 import com.urbaneats.model.Category;
 import com.urbaneats.model.Food;
 import com.urbaneats.model.FoodTypes;
@@ -17,7 +15,6 @@ import com.urbaneats.repository.FoodTypesRepository;
 import com.urbaneats.repository.RestaurantRepository;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
-import io.vavr.control.Try;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
@@ -25,10 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
@@ -143,8 +138,25 @@ public class FoodService {
                 "No Food item found with provided id")));
     }
 
+    public List<Food> findAllById(List<Long> foodIds) {
+        return foodRepository.findAllById(foodIds);
+    }
+
+
+//    Required changes after changing the google cloud account
     public List<FoodTypes> getFoodTypes() {
-        return foodTypesRepository.findAll();
+        List<FoodTypes> foodTypes = foodTypesRepository.findAll();
+
+        Map<String, String> imageUrlMap = gcloudStorageService.getFoodImageUrlMap("foodTypesImages/");
+
+        foodTypes.forEach(type -> {
+            String imageIdFromDb = gcloudStorageService.getImageIdForFetchingImageUrl(type.getImageId()).replace("foodTypesImages%2F", "");
+            if(imageIdFromDb.equalsIgnoreCase(StringUtils.EMPTY))
+                log.error("Failed to get the final imageId for food type: {}, imageId: {}", type.getName(), type.getImageId());
+            type.setImageId(imageUrlMap.get(imageIdFromDb));
+        });
+//        foodTypes.forEach(foodType -> foodType.setImageId(foodType.getImageId().replace("urban_eats/o/", "urban_eats-1/o/urban_eats%2F")));
+        return foodTypes;
     }
 
     public List<FoodItemsResponseDto> searchFoodItems(String keyword) {
