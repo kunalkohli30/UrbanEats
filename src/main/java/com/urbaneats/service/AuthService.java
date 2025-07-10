@@ -49,6 +49,7 @@ public class AuthService {
     CartRepository cartRepository;
 
 
+//    Signup method for in house jwt implementation
     public Either<Error, AuthResponse> createUserHandler(User user) {
 
         Either<Error, Object> savedUser = Optional.ofNullable(userRepository.findByEmail(user.getEmail()))
@@ -79,6 +80,7 @@ public class AuthService {
 
     }
 
+//    signin method for in house jwt validation
     public AuthResponse signIn(LoginRequest req) {
 
         Authentication authentication = authenticate(req.getEmail(), req.getPassword());
@@ -104,6 +106,7 @@ public class AuthService {
         return new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
     }
 
+//    signup
     public Either<Error, Map<String, String>> registerUserDetails(UserDto userDto) throws FirebaseAuthException {
 
         UserRecord userRecord = null;
@@ -125,9 +128,12 @@ public class AuthService {
 //        createRequest.setPhoneNumber(userDto.getPhoneNumber());
 //        createRequest.setPhotoUrl(userDto.getImageUrl());
 
+        // create a new user in firebase auth
         UserRecord user = FirebaseAuth.getInstance().createUser(createRequest);
+        // update the recently created user and add custom claims, adding in previous step was not possible
         registerClaimsForNewUser(user.getUid(), Map.ofEntries(Map.entry("role", USER_ROLE.ROLE_CUSTOMER.toString())));
 
+        // return authentication token
         String authToken = FirebaseAuth.getInstance().createCustomToken(user.getUid());
         return Either.right(Collections.singletonMap("authToken", authToken));
     }

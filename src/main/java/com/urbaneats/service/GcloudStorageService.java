@@ -7,6 +7,7 @@ import com.google.cloud.storage.StorageOptions;
 import io.vavr.control.Try;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -16,8 +17,11 @@ import java.util.Map;
 @Slf4j
 public class GcloudStorageService {
 
-    private final String projectId = "urban-eats-30";
-    private final String bucketName = "urban_eats-1";
+    @Value("${gcloud.storage.bucket.projectId}")
+    private String projectId;
+
+    @Value("${gcloud.storage.bucket.bucketName}")
+    private String bucketName;
 
     Map<String, String> getFoodImageUrlMap(String folderName) {
 

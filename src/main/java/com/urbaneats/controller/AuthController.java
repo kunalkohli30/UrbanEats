@@ -31,7 +31,7 @@ public class AuthController {
         this.authService = authService;
     }
 
-    //    Handler to create new user account
+//    Signup method for in house jwt implementation, currently not in use
     @PostMapping("/signup")
     public ResponseEntity<?> createUserHandler(@RequestBody User user){
 
@@ -42,6 +42,8 @@ public class AuthController {
                 .fold(ErrorResponseHandler::respondError,
                         response -> new ResponseEntity<>(response, HttpStatus.OK));
     }
+
+//    signin method for in house jwt validation, currently not in use
 
     @PostMapping("/signin")
     public ResponseEntity<?> signIn(@RequestBody LoginRequest req) {
@@ -63,6 +65,8 @@ public class AuthController {
 
     }
 
+
+//    signup method for firebase auth user creation
     @PostMapping("/signup/v2")
     public ResponseEntity<?> signupV2(HttpServletRequest httpServletRequest,
                                       @RequestBody UserDto userDto) {
@@ -83,28 +87,5 @@ public class AuthController {
                 .fold(ErrorResponseHandler::respondError,
                         response -> new ResponseEntity<>(response, HttpStatus.OK));
     }
-
-
-
-//    Login implemented on fronted
-//    @PostMapping("/signin/v2")
-//    public ResponseEntity<?> signInV2(@RequestBody LoginRequest req) {
-//
-//        return Try.of( () -> authService.signIn(req))
-//                .toEither()
-//                .peekLeft(throwable -> log.error("Exception occurred during sign in attempt by user: {}. Exception: {}, error message: {}",
-//                        req.getEmail(), throwable.getCause(), throwable.getMessage()))
-//                .mapLeft(throwable -> {
-//                    if(throwable instanceof UsernameNotFoundException)
-//                        return new Error(ErrorType.USER_NOT_FOUND, throwable.getMessage());
-//                    else if(throwable instanceof BadCredentialsException)
-//                        return new Error(ErrorType.BAD_AUTHENTICATION_CREDENTIALS, throwable.getMessage());
-//                    else
-//                        return new Error(ErrorType.INTERNAL_SERVER_ERROR, throwable.getMessage());
-//                })
-//                .fold(ErrorResponseHandler::respondError,
-//                        response -> new ResponseEntity<>(response, HttpStatus.OK));
-//
-//    }
 
 }
