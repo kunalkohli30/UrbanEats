@@ -1,0 +1,9 @@
+steps:
+  - name: 'gcr.io/cloud-builders/mvn'
+    args: ['clean', 'package', '-DskipTests']
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['app', 'deploy', '--quiet']
+    dir: './appengine-staging'  # or '.' if your app.yaml is in root
+
+timeout: 900s
