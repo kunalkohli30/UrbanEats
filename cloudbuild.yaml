@@ -10,7 +10,7 @@ steps:
     secretEnv: ['DB_PASSWORD']
 
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['app', 'deploy', '--quiet', '--env-vars-file', '.env.yaml']
+    args: ['app', 'deploy', '--quiet']
     dir: '.'
     secretEnv: ['DB_PASSWORD']
 
