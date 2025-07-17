@@ -16,7 +16,7 @@ steps:
       - '-c'
       - |
         echo "env_variables:" > .env.yaml
-        echo "  DB_PASS: '${DB_PASS}'" >> .env.yaml
+#        echo "  DB_PASS: '${DB_PASS}'" >> .env.yaml
         echo '!**' > .gcloudignore
 
   - name: 'gcr.io/cloud-builders/gcloud'
