@@ -6,4 +6,8 @@ steps:
     args: ['app', 'deploy', '--quiet']
     dir: './appengine-staging'  # or '.' if your app.yaml is in root
 
+availableSecrets:
+  secretManager:
+    - versionName: projects/urbaneats1/secrets/DB_PASS/versions/latest
+      env: 'DB_PASSWORD'
 timeout: 900s

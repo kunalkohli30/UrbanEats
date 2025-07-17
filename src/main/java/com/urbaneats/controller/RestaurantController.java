@@ -1,6 +1,7 @@
 package com.urbaneats.controller;
 
 import com.google.firebase.auth.FirebaseAuthException;
+import com.urbaneats.config.SecretProperties;
 import com.urbaneats.dto.error.Error;
 import com.urbaneats.dto.error.ErrorType;
 import com.urbaneats.handler.ErrorResponseHandler;
@@ -13,6 +14,7 @@ import io.vavr.control.Try;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,15 @@ public class RestaurantController {
 
     private final RestaurantService restaurantService;
     private final UserService userService;
+
+    @Value("${DB_PASSWORD}")
+    private String dbPassword;
+//
+//    @Value("${FIREBASE_API_KEY}")
+//    String firebasekey;
+
+    @Autowired
+    private SecretProperties secretProperties;
 
     @Autowired
     public RestaurantController(RestaurantService restaurantService, UserService userService) {
@@ -69,6 +80,7 @@ public class RestaurantController {
 
     @GetMapping("/offers")
     public ResponseEntity<?> getOffers() {
+        log.info("--------- Secrets - DB_HOST: " + dbPassword + " " + secretProperties.getFirebaseApiKey());
         return Try.of(restaurantService::fetchOffers)
                 .toEither()
                 .peekLeft(throwable -> log.error("exception occurred while fetching offers. Message:{}, stacktrace: {}",
