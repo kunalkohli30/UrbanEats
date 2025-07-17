@@ -29,7 +29,7 @@ public class RestaurantController {
     private final RestaurantService restaurantService;
     private final UserService userService;
 
-    @Value("${DB_PASSWORD}")
+    @Value("${DB_PASSWORD:PASSWORD_NOT_FOUND}")
     private String dbPassword;
 
 //    @Value("${FIREBASE_API_KEY}")
