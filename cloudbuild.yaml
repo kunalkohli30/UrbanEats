@@ -16,7 +16,8 @@ steps:
       - '-c'
       - |
         echo "env_variables:" > .env.yaml
-        echo "!**" > .gcloudignore
+        echo "  DB_PASS: '${DB_PASS}'" >> .env.yaml
+        echo '!**' > .gcloudignore
 
   - name: 'gcr.io/cloud-builders/gcloud'
     args: ['app', 'deploy', '--quiet', '--env-vars-file', '.env.yaml']
@@ -24,7 +25,7 @@ steps:
 
 availableSecrets:
   secretManager:
-    - versionName: projects/urbaneats1/secrets/DB_PASS/versions/latest
+    - versionName: projects/752443826885/secrets/DB_PASS/versions/1
       env: 'DB_PASS'
 
 timeout: 900s
