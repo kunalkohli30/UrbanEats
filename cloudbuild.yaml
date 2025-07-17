@@ -7,25 +7,16 @@ steps:
   - name: 'gcr.io/cloud-builders/mvn'
     args: ['clean', 'package', '-DskipTests']
     dir: '.'
-    secretEnv: ['DB_PASS']
-
-  - name: 'ubuntu'
-    entrypoint: 'bash'
-    secretEnv: ['DB_PASS']
-    args:
-      - '-c'
-      - |
-        echo "env_variables:" > .env.yaml
-        echo "  DB_PASS: '${DB_PASS}'" >> .env.yaml
-        echo '!**' > .gcloudignore
+    secretEnv: ['DB_PASSWORD']
 
   - name: 'gcr.io/cloud-builders/gcloud'
     args: ['app', 'deploy', '--quiet', '--env-vars-file', '.env.yaml']
     dir: '.'
+    secretEnv: ['DB_PASSWORD']
 
 availableSecrets:
   secretManager:
     - versionName: projects/752443826885/secrets/DB_PASS/versions/1
-      env: 'DB_PASS'
+      env: 'DB_PASSWORD'
 
 timeout: 900s
