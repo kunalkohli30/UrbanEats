@@ -3,9 +3,9 @@ env: flex  # Standard environment (free-tier eligible)
 
 instance_class: F4  # Smallest free-tier instance (F1, F2, F4 available)
 
-automatic_scaling:
-  min_instances: 1  # Ensures no charges when idle
-  max_instances: 1  # Prevents high costs
+#automatic_scaling:
+#  min_instances: 1  # Ensures no charges when idle
+#  max_instances: 1  # Prevents high costs
 
 handlers:
   - url: /.*
