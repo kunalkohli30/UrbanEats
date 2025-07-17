@@ -1,5 +1,5 @@
 runtime: java21  # Use Java 17 (or java11)
-env: standard  # Standard environment (free-tier eligible)
+env: flex  # Standard environment (free-tier eligible)
 
 instance_class: F4  # Smallest free-tier instance (F1, F2, F4 available)
 
