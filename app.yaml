@@ -2,7 +2,7 @@ runtime: custom  # Use Java 17 (or java11)
 env: flex  # Standard environment (free-tier eligible)
 
 readiness_check:
-  app_start_timeout_sec:180
+  app_start_timeout_sec: 180
 
 instance_class: F4  # Smallest free-tier instance (F1, F2, F4 available)
 
