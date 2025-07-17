@@ -1,7 +1,11 @@
 serviceAccount: projects/urbaneats1/serviceAccounts/urbaneats1@appspot.gserviceaccount.com
 options:
-  logging: CLOUD_LOGGING_ONLY
+  logging: LEGACY
 steps:
+  - name: 'gcr.io/cloud-builders/busybox'
+    entrypoint: 'sh'
+    args: [ '-c', 'echo "🔍 Listing files:" && ls -al && cat pom.xml || echo "No pom.xml found"' ]
+
   - name: 'gcr.io/cloud-builders/mvn'
     args: ['clean', 'package', '-DskipTests']
     secretEnv: ['DB_PASSWORD']
