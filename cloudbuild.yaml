@@ -9,7 +9,7 @@ steps:
     dir: '.'
 
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: [ 'app', 'deploy', '--quiet', '--verbosity=debug' ]
+    args: [ 'app', 'deploy', 'app.yaml', '--quiet', '--verbosity=debug' ]
     dir: '.'
 
 timeout: 900s
