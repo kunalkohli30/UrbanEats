@@ -1,0 +1,30 @@
+runtime: java21  # Use Java 17 (or java11)
+env: standard  # Standard environment (free-tier eligible)
+
+instance_class: F4  # Smallest free-tier instance (F1, F2, F4 available)
+
+automatic_scaling:
+  min_instances: 1  # Ensures no charges when idle
+  max_instances: 1  # Prevents high costs
+
+handlers:
+  - url: /.*
+    script: auto
+    secure: always  # Redirects HTTP to HTTPS
+
+env_variables:  # Set environment variables for database connection
+  DB_USER: user2
+  DB_PASS: AppPass
+  DB_NAME: urban_eats_db
+  DB_HOST: 34.131.183.77:3306
+  SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
+  SPRING_PROFILES_ACTIVE: prod
+  INSTANCE_CONNECTION_NAME: urbaneats1:asia-south2:urbaneats
+  FIREBASE_API_KEY: AIzaSyAQKHS9FeESC4ej_pIF_cBxLmvtLyif2vU
+beta_settings:
+  cloud_sql_instances: urbaneats1:asia-south2:urbaneats  # Replace with your Cloud SQL instance details
+
+entrypoint: java -jar target/UrbanEats-0.0.1-SNAPSHOT.jar  # Specify the JAR file name
+
+#service_account: my-service-account@YOUR_PROJECT_ID.iam.gserviceaccount.com
+
