@@ -17,12 +17,12 @@ steps:
         ls -al
         echo "Target contents:"
         ls -al target/
-
   - name: 'ubuntu'
     entrypoint: bash
     args:
       - -c
       - |
+        echo "Copying JAR for Docker build"
         cp target/UrbanEats-0.0.1-SNAPSHOT.jar app.jar
 
   - name: 'gcr.io/cloud-builders/gcloud'
