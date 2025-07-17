@@ -6,7 +6,7 @@ steps:
     args: ['clean', 'package', '-DskipTests']
     secretEnv: ['DB_PASSWORD']
 
-  - name: 'gcr.io/cloud-builders/bash'
+  - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
       - '-c'
