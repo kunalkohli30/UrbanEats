@@ -1,6 +1,6 @@
+serviceAccount: projects/urbaneats1/serviceAccounts/urbaneats1@appspot.gserviceaccount.com
 options:
   logging: CLOUD_LOGGING_ONLY
-  serviceAccount: projects/urbaneats1/serviceAccounts/urbaneats1@appspot.gserviceaccount.com
 steps:
   - name: 'gcr.io/cloud-builders/mvn'
     args: ['clean', 'package', '-DskipTests']
