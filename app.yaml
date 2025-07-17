@@ -24,7 +24,8 @@ env_variables:  # Set environment variables for database connection
 beta_settings:
   cloud_sql_instances: urbaneats1:asia-south2:urbaneats  # Replace with your Cloud SQL instance details
 
-entrypoint: java -jar target/UrbanEats-0.0.1-SNAPSHOT.jar  # Specify the JAR file name
+#entrypoint: java -jar target/UrbanEats-0.0.1-SNAPSHOT.jar  # Specify the JAR file name
+entrypoint: java -jar app.jar  # Specify the JAR file name
 
 #service_account: my-service-account@YOUR_PROJECT_ID.iam.gserviceaccount.com
 

@@ -8,6 +8,13 @@ steps:
     args: ['clean', 'package', '-DskipTests']
     dir: '.'
 
+  - name: 'ubuntu'
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        cp target/UrbanEats-0.0.1-SNAPSHOT.jar app.jar
+
   - name: 'gcr.io/cloud-builders/gcloud'
     args: [ 'app', 'deploy', 'app.yaml', '--quiet', '--verbosity=debug' ]
     dir: '.'
