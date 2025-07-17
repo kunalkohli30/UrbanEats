@@ -4,23 +4,24 @@ options:
   logging: CLOUD_LOGGING_ONLY
 
 steps:
+  # Build your Spring Boot app
   - name: 'gcr.io/cloud-builders/mvn'
     args: ['clean', 'package', '-DskipTests']
     dir: '.'
     secretEnv: ['DB_PASSWORD']
 
+  # Safely write secret into .env.yaml for App Engine
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
-  - name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    secretEnv: [ 'DB_PASSWORD' ]
+    secretEnv: ['DB_PASSWORD']
     args:
       - '-c'
       - |
         echo "env_variables:" > .env.yaml
-        echo "  DB_PASSWORD: \"\$DB_PASSWORD\"" >> .env.yaml
+        printf "  DB_PASSWORD: '%s'\n" "$DB_PASSWORD" >> .env.yaml
         echo '!**' > .gcloudignore
 
+  # Deploy using the secret
   - name: 'gcr.io/cloud-builders/gcloud'
     args: ['app', 'deploy', '--quiet', '--env-vars-file', '.env.yaml']
     dir: '.'
