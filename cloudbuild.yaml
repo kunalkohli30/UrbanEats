@@ -11,13 +11,15 @@ steps:
 
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
-    secretEnv: ['DB_PASSWORD']
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    secretEnv: [ 'DB_PASSWORD' ]
     args:
       - '-c'
       - |
         echo "env_variables:" > .env.yaml
-        echo "  DB_PASSWORD: \"$DB_PASSWORD\"" >> .env.yaml
-        echo '!**' > .gcloudignore  # also include .gcloudignore to avoid exclusions
+        echo "  DB_PASSWORD: \"\$DB_PASSWORD\"" >> .env.yaml
+        echo '!**' > .gcloudignore
 
   - name: 'gcr.io/cloud-builders/gcloud'
     args: ['app', 'deploy', '--quiet', '--env-vars-file', '.env.yaml']
