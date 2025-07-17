@@ -4,10 +4,12 @@ options:
 steps:
   - name: 'gcr.io/cloud-builders/mvn'
     args: ['clean', 'package', '-DskipTests']
+    secretEnv: ['DB_PASSWORD']
 
   - name: 'gcr.io/cloud-builders/gcloud'
     args: ['app', 'deploy', '--quiet']
     dir: './appengine-staging'  # or '.' if your app.yaml is in root
+    secretEnv: ['DB_PASSWORD']  # Add this if needed by gcloud or App Engine
 
 availableSecrets:
   secretManager:
