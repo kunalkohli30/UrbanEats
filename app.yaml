@@ -14,7 +14,7 @@ handlers:
 
 env_variables:  # Set environment variables for database connection
   DB_USER: user2
-  DB_PASS: AppPass
+#  DB_PASS: AppPass
   DB_NAME: urban_eats_db
   DB_HOST: 34.131.183.77:3306
   SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
