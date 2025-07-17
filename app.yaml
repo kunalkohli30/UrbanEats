@@ -1,6 +1,10 @@
 runtime: java  # Use Java 17 (or java11)
 env: flex  # Standard environment (free-tier eligible)
 
+runtime_config:
+  operating_system: "ubuntu22"
+  runtime_version: "21"
+
 instance_class: F4  # Smallest free-tier instance (F1, F2, F4 available)
 
 #automatic_scaling:
