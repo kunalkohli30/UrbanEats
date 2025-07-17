@@ -1,22 +1,10 @@
-serviceAccount: projects/urbaneats1/serviceAccounts/urbaneats1@appspot.gserviceaccount.com
-
-options:
-  logging: CLOUD_LOGGING_ONLY
-
 steps:
   - name: 'gcr.io/cloud-builders/mvn'
     args: ['clean', 'package', '-DskipTests']
     dir: '.'
-    secretEnv: ['DB_PASSWORD']
 
   - name: 'gcr.io/cloud-builders/gcloud'
     args: ['app', 'deploy', '--quiet']
     dir: '.'
-    secretEnv: ['DB_PASSWORD']
-
-availableSecrets:
-  secretManager:
-    - versionName: projects/752443826885/secrets/DB_PASS/versions/1
-      env: 'DB_PASSWORD'
 
 timeout: 900s
