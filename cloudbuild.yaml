@@ -6,6 +6,13 @@ steps:
     args: ['clean', 'package', '-DskipTests']
     secretEnv: ['DB_PASSWORD']
 
+  - name: 'gcr.io/cloud-builders/bash'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo '!**' > .gcloudignore
+
   - name: 'gcr.io/cloud-builders/gcloud'
     args: ['app', 'deploy', '--quiet']
     dir: '.'  # or '.' if your app.yaml is in root
