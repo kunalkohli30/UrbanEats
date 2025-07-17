@@ -1,25 +1,31 @@
 serviceAccount: projects/urbaneats1/serviceAccounts/urbaneats1@appspot.gserviceaccount.com
+
 options:
   logging: CLOUD_LOGGING_ONLY
+
 steps:
   - name: 'gcr.io/cloud-builders/mvn'
     args: ['clean', 'package', '-DskipTests']
+    dir: '.'
     secretEnv: ['DB_PASSWORD']
 
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
+    secretEnv: ['DB_PASSWORD']
     args:
       - '-c'
       - |
-        echo '!**' > .gcloudignore
+        echo "env_variables:" > .env.yaml
+        echo "  DB_PASSWORD: \"$DB_PASSWORD\"" >> .env.yaml
+        echo '!**' > .gcloudignore  # also include .gcloudignore to avoid exclusions
 
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['app', 'deploy', '--quiet']
-    dir: '.'  # or '.' if your app.yaml is in root
-    secretEnv: ['DB_PASSWORD']  # Add this if needed by gcloud or App Engine
+    args: ['app', 'deploy', '--quiet', '--env-vars-file', '.env.yaml']
+    dir: '.'
 
 availableSecrets:
   secretManager:
     - versionName: projects/urbaneats1/secrets/DB_PASS/versions/latest
       env: 'DB_PASSWORD'
+
 timeout: 900s
